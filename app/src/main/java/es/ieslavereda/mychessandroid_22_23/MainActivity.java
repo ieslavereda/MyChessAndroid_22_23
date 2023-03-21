@@ -12,9 +12,10 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TableLayout board;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         TableRow row;
 
         board = findViewById(R.id.board);
+        textView = findViewById(R.id.textView);
 
         // Fila superior
         addTextViews();
@@ -36,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
             for (int c = 'A'; c <= 'H'; c++) {
                 Cell cell = new Cell(this, new Coordinate((char) c, r), null);
-                cell.highlight();
+                cell.setOnClickListener(this);
                 row.addView(cell);
             }
 
@@ -104,5 +106,10 @@ public class MainActivity extends AppCompatActivity {
         txtView.setGravity(Gravity.CENTER);
 
         return txtView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        textView.setText(((Cell)view).getCoordinate().toString());
     }
 }
