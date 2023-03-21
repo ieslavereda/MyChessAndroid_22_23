@@ -1,24 +1,82 @@
 package es.ieslavereda.mychessandroid_22_23;
 
 
+import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
-public class Board {
+public class Board extends TableLayout {
 
     private Cell[][] cells;
 
    // private IDeletePieceManager deletePieceManager;
 
-    public Board() {
-
-       // this.deletePieceManager = new DeletePieceManager();
-
+    public Board(Context context, AttributeSet attributeSet) {
+        super(context,attributeSet);
         cells = new Cell[8][8];
+        // this.deletePieceManager = new DeletePieceManager();
 
-        for (int row = 0; row <= 7; row++)
-            for (int col = 0; col <= 7; col++) {
-//                cells[row][col] = new Cell(new Coordinate((char) ('A' + col), row + 1), this);
+        // Fila superior
+        addTextViews();
+
+        // Parte media
+        TableRow row ;
+        for (int r = 1; r <= 8; r++) {
+            row = new TableRow(getContext());
+            row.addView(getTextView("" + r));
+
+            for (int c = 'A'; c <= 'H'; c++) {
+                Cell cell = new Cell(getContext(), new Coordinate((char) c, r), null);
+                cells[r-1][c-'A']=cell;
+//                cell.setOnClickListener(this);
+                row.addView(cell);
             }
 
+            row.addView(getTextView("" + r));
+            addView(row);
+        }
+
+
+        // Fila inferior
+        addTextViews();
+
+    }
+    private void addTextViews() {
+        TableRow row;
+
+        row = new TableRow(getContext());
+        row.addView(getTextView(""));
+
+        for (int i = 0; i < 8; i++)
+            row.addView(getTextView(String.valueOf((char) ('A' + i))));
+
+        row.addView(getTextView(""));
+
+        addView(row);
+    }
+    private TextView getTextView(String text) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int widh = displayMetrics.widthPixels;
+
+        TextView txtView = new TextView(getContext());
+
+        txtView.setText(text);
+        txtView.setTextColor(getResources().getColor(R.color.white, getContext().getTheme()));
+        txtView.setBackgroundColor(getResources().getColor(R.color.black, getContext().getTheme()));
+        txtView.setWidth(widh / 10);
+        txtView.setHeight(widh / 10);
+        txtView.setGravity(Gravity.CENTER);
+
+        return txtView;
     }
 
     public void placePieces() {

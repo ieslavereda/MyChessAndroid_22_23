@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TableLayout
+    <es.ieslavereda.mychessandroid_22_23.Board
         android:id="@+id/board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -17,6 +17,7 @@ public class Cell extends androidx.appcompat.widget.AppCompatImageView {
     private Coordinate coordinate;
     private Board board;
 
+
     public Cell(Context context, Coordinate coordinate, Board board) {
         super(context);
         this.coordinate = coordinate;
@@ -43,6 +44,10 @@ public class Cell extends androidx.appcompat.widget.AppCompatImageView {
         setMaxHeight(widh/10);
         setMinimumHeight(widh/10);
 
+        setPadding(0,0,0,0);
+        setScaleType(ScaleType.FIT_CENTER);
+        setImageResource(R.mipmap.ic_b_knight_foreground);
+        setAdjustViewBounds(true);
         updateCellView();
     }
 
