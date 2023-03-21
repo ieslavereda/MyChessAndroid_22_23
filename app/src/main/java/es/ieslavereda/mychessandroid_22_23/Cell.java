@@ -4,24 +4,46 @@ import com.diogonunes.jcolor.Attribute;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 
-public class Cell {
+import android.app.Activity;
+import android.content.Context;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
+
+public class Cell extends androidx.appcompat.widget.AppCompatImageView {
     private Piece piece;
-    private Color color;
-    private Color original;
+    private int color;
+    private int original;
     private Coordinate coordinate;
     private Board board;
 
-    public Cell(Coordinate coordinate, Board board) {
+    public Cell(Context context, Coordinate coordinate, Board board) {
+        super(context);
         this.coordinate = coordinate;
         this.board = board;
         this.piece = null;
+
         this.original = (
                 (coordinate.getRow() - 1 + coordinate.getColumn() - 'A') % 2 == 0)
                 ?
-                Color.WHITE_CELL
+                R.color.cell_white
                 :
-                Color.BLACK_CELL;
+                R.color.cell_black;
+
         this.color = original;
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        int widh = displayMetrics.widthPixels;
+
+        setMaxWidth(widh/10);
+        setMinimumWidth(widh/10);
+        setMaxHeight(widh/10);
+        setMinimumHeight(widh/10);
+
+        updateCellView();
     }
 
     public Board getBoard() {
@@ -35,7 +57,7 @@ public class Cell {
         return coordinate;
     }
 
-    public Color getColor() {
+    public int getColor() {
         return color;
     }
 
@@ -46,34 +68,41 @@ public class Cell {
     public void highlight() {
         if (isEmpty()) {
 
-            if (original == Color.WHITE_CELL)
-                color = Color.HIGHLIGHT_WHITE;
+            if (original == R.color.cell_white)
+                color = R.color.HIGHLIGHT_WHITE;
             else
-                color = Color.HIGHLIGHT_BLACK;
+                color = R.color.HIGHLIGHT_BLACK;
 
         } else {
-            color = (original == Color.WHITE_CELL)
+            color = (original == R.color.cell_white)
                     ?
-                    Color.HIGHLIGHT_KILL_WHITE
+                    R.color.HIGHLIGHT_KILL_WHITE
                     :
-                    Color.HIGHLIGHT_KILL_BLACK;
+                    R.color.HIGHLIGHT_KILL_BLACK;
         }
+
+        updateCellView();
     }
 
     public void resetColor() {
         color = original;
+        updateCellView();
     }
 
-    @Override
-    public String toString() {
-        if (isEmpty())
-            return colorize("   ", color.getAttribute());
-        else
-            return colorize(" ", color.getAttribute()) +
-                    piece +
-                    colorize(" ", color.getAttribute());
-
+    private void updateCellView() {
+        setBackgroundColor(getResources().getColor(color,getContext().getTheme()));
     }
+
+//    @Override
+//    public String toString() {
+//        if (isEmpty())
+//            return colorize("   ", color.getAttribute());
+//        else
+//            return colorize(" ", color.getAttribute()) +
+//                    piece +
+//                    colorize(" ", color.getAttribute());
+//
+//    }
 
     public boolean isEmpty() {
         return piece == null;

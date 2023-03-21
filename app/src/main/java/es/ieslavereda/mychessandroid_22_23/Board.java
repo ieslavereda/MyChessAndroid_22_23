@@ -16,7 +16,7 @@ public class Board {
 
         for (int row = 0; row <= 7; row++)
             for (int col = 0; col <= 7; col++) {
-                cells[row][col] = new Cell(new Coordinate((char) ('A' + col), row + 1), this);
+//                cells[row][col] = new Cell(new Coordinate((char) ('A' + col), row + 1), this);
             }
 
     }

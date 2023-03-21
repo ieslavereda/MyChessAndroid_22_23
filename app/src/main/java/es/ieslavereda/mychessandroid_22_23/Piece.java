@@ -40,10 +40,10 @@ public abstract class Piece {
         cell.setPiece(this);
     }
 
-    @Override
-    public String toString(){
-        return colorize(shape.toString(),shape.color.getAttribute(),cell.getColor().getAttribute());
-    }
+//    @Override
+//    public String toString(){
+//        return colorize(shape.toString(),shape.color.getAttribute(),cell.getColor().getAttribute());
+//    }
 
     public abstract Lista getNextMovements();
 
