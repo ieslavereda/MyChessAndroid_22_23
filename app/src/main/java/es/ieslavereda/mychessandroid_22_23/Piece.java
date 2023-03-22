@@ -32,7 +32,7 @@ public abstract class Piece {
         return shape.color;
     }
 
-    public PieceType getShape() {
+    public PieceType getPieceType() {
         return shape;
     }
 
@@ -49,26 +49,26 @@ public abstract class Piece {
 
     public enum PieceType {
 
-        BLACK_KING('♚',Color.BLACK),
-        BLACK_QUEEN('♛',Color.BLACK),
-        BLACK_ROOK('♜',Color.BLACK),
-        BLACK_BISHOP('♝',Color.BLACK),
-        BLACK_KNIGHT('♞',Color.BLACK),
-        BLACK_PAWN('♟',Color.BLACK),
-        WHITE_KING('♚',Color.WHITE),
-        WHITE_QUEEN('♛',Color.WHITE),
-        WHITE_ROOK('♜',Color.WHITE),
-        WHITE_BISHOP('♝',Color.WHITE),
-        WHITE_KNIGHT('♞',Color.WHITE),
-        WHITE_PAWN('♟',Color.WHITE);
-        private char shape;
+        BLACK_KING(R.mipmap.ic_n_king_foreground,Color.BLACK),
+        BLACK_QUEEN(R.mipmap.ic_n_queen_foreground,Color.BLACK),
+        BLACK_ROOK(R.mipmap.ic_n_rook_foreground,Color.BLACK),
+        BLACK_BISHOP(R.mipmap.ic_n_bishop_foreground,Color.BLACK),
+        BLACK_KNIGHT(R.mipmap.ic_n_king_foreground,Color.BLACK),
+        BLACK_PAWN(R.mipmap.ic_n_pawn_foreground,Color.BLACK),
+        WHITE_KING(R.mipmap.ic_b_king_foreground,Color.WHITE),
+        WHITE_QUEEN(R.mipmap.ic_b_queen_foreground,Color.WHITE),
+        WHITE_ROOK(R.mipmap.ic_b_rook_foreground,Color.WHITE),
+        WHITE_BISHOP(R.mipmap.ic_b_bishoop_foreground,Color.WHITE),
+        WHITE_KNIGHT(R.mipmap.ic_b_knight_foreground,Color.WHITE),
+        WHITE_PAWN(R.mipmap.ic_b_pawn_foreground,Color.WHITE);
+        private int shape;
         private Color color;
-        PieceType(char shape,Color color){
+        PieceType(int shape,Color color){
             this.shape = shape;
             this.color = color;
         }
 
-        public char getShape() {
+        public int getShape() {
             return shape;
         }
 

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TableLayout board;
+    private Board board;
     private TextView textView;
 
     @Override
@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         board = findViewById(R.id.board);
         textView = findViewById(R.id.textView);
 
+        board.setCellListener(this);
 
 
 
@@ -63,9 +64,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view instanceof Cell)
+        if (view instanceof Cell) {
             textView.setText(((Cell) view).getCoordinate().toString());
-        else
+            Cell c = (Cell) view;
+            if (c.getPiece()!=null)
+                board.highlight(c.getPiece().getNextMovements());
+
+        } else
             textView.setText(((TextView) view).getText());
     }
 }

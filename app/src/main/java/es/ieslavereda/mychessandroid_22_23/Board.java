@@ -6,6 +6,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -31,9 +32,9 @@ public class Board extends TableLayout {
             row.addView(getTextView("" + r));
 
             for (int c = 'A'; c <= 'H'; c++) {
-                Cell cell = new Cell(getContext(), new Coordinate((char) c, r), null);
+                Cell cell = new Cell(getContext(), new Coordinate((char) c, r), this);
+
                 cells[r-1][c-'A']=cell;
-//                cell.setOnClickListener(this);
                 row.addView(cell);
             }
 
@@ -44,6 +45,8 @@ public class Board extends TableLayout {
 
         // Fila inferior
         addTextViews();
+
+        placePieces();
 
     }
     private void addTextViews() {
@@ -80,29 +83,29 @@ public class Board extends TableLayout {
     }
 
     public void placePieces() {
-//        new WhiteRook(getCell(new Coordinate('A',8)));
-//        new WhiteRook(getCell(new Coordinate('H',8)));
-//        new WhiteKnight(getCell(new Coordinate('B', 8)));
-//        new WhiteKnight(getCell(new Coordinate('G', 8)));
-//        new WhiteBishop(getCell(new Coordinate('C',8)));
-//        new WhiteBishop(getCell(new Coordinate('F',8)));
-//        new WhiteQueen(getCell(new Coordinate('D',8)));
-//        new WhiteKing(getCell(new Coordinate('E',8)));
-//
-//        new BlackRook(getCell(new Coordinate('A',1)));
-//        new BlackRook(getCell(new Coordinate('H',1)));
-//        new BlackKnight(getCell(new Coordinate('B', 1)));
-//        new BlackKnight(getCell(new Coordinate('G', 1)));
-//        new BlackKnight(getCell(new Coordinate('C',1)));
-//        new BlackKnight(getCell(new Coordinate('F',1)));
-//        new BlackQueen(getCell(new Coordinate('D',1)));
-//        new BlackKing(getCell(new Coordinate('E',1)));
-//
-//        for(int i='A';i<='H';i++)
-//            new WhitePawn(getCell(new Coordinate((char)i,7)));
-//
-//        for(int i='A';i<='H';i++)
-//            new BlackPawn(getCell(new Coordinate((char)i,2)));
+        new WhiteRook(getCell(new Coordinate('A',8)));
+        new WhiteRook(getCell(new Coordinate('H',8)));
+        new WhiteKnight(getCell(new Coordinate('B', 8)));
+        new WhiteKnight(getCell(new Coordinate('G', 8)));
+        new WhiteBishop(getCell(new Coordinate('C',8)));
+        new WhiteBishop(getCell(new Coordinate('F',8)));
+        new WhiteQueen(getCell(new Coordinate('D',8)));
+        new WhiteKing(getCell(new Coordinate('E',8)));
+
+        new BlackRook(getCell(new Coordinate('A',1)));
+        new BlackRook(getCell(new Coordinate('H',1)));
+        new BlackKnight(getCell(new Coordinate('B', 1)));
+        new BlackKnight(getCell(new Coordinate('G', 1)));
+        new BlackKnight(getCell(new Coordinate('C',1)));
+        new BlackKnight(getCell(new Coordinate('F',1)));
+        new BlackQueen(getCell(new Coordinate('D',1)));
+        new BlackKing(getCell(new Coordinate('E',1)));
+
+        for(int i='A';i<='H';i++)
+            new WhitePawn(getCell(new Coordinate((char)i,7)));
+
+        for(int i='A';i<='H';i++)
+            new BlackPawn(getCell(new Coordinate((char)i,2)));
 
 
     }
@@ -127,6 +130,12 @@ public class Board extends TableLayout {
         for (Cell[] row : cells)
             for (Cell c : row)
                 c.resetColor();
+    }
+
+    public void setCellListener(View.OnClickListener viewOnClickListener){
+        for(Cell[] cellsRow : cells)
+            for(Cell c : cellsRow)
+                c.setOnClickListener(viewOnClickListener);
     }
 
     @Override

@@ -6,9 +6,7 @@ import static com.diogonunes.jcolor.Ansi.colorize;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.widget.ImageView;
 
 public class Cell extends androidx.appcompat.widget.AppCompatImageView {
     private Piece piece;
@@ -46,7 +44,7 @@ public class Cell extends androidx.appcompat.widget.AppCompatImageView {
 
         setPadding(0,0,0,0);
         setScaleType(ScaleType.FIT_CENTER);
-        setImageResource(R.mipmap.ic_b_knight_foreground);
+
         setAdjustViewBounds(true);
         updateCellView();
     }
@@ -68,6 +66,8 @@ public class Cell extends androidx.appcompat.widget.AppCompatImageView {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+        if(piece!=null) setImageResource(piece.getPieceType().getShape());
+        else setImageResource(0);
     }
 
     public void highlight() {
